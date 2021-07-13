@@ -1,4 +1,4 @@
-package com.jumpywiz.starwarsmovies.models
+package com.jumpywiz.starwarsmovies.model
 
 data class MovieDB(
     val title: String?,

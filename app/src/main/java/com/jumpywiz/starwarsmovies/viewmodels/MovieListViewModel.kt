@@ -1,4 +1,26 @@
 package com.jumpywiz.starwarsmovies.viewmodels
 
-class MovieListViewMode {
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.jumpywiz.starwarsmovies.model.Movie
+import com.jumpywiz.starwarsmovies.repos.MovieRepository
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+class MovieListViewModel @Inject constructor(private val repos: MovieRepository): ViewModel(){
+
+    private val moviesData: MutableLiveData<List<Movie?>> = MutableLiveData()
+    val movies: LiveData<List<Movie?>> = moviesData
+
+    init {
+        getMoviesList()
+    }
+
+    fun getMoviesList() {
+        viewModelScope.launch {
+            moviesData.value = repos.getMoviesList()
+        }
+    }
 }

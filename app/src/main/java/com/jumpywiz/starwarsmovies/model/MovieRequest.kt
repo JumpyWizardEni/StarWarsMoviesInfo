@@ -1,4 +1,4 @@
-package com.jumpywiz.starwarsmovies.models
+package com.jumpywiz.starwarsmovies.model
 
 import com.google.gson.annotations.SerializedName
 
