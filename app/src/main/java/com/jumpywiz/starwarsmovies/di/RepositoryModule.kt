@@ -1,7 +1,8 @@
 package com.jumpywiz.starwarsmovies.di
 
+import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.net.RetrofitService
-import com.jumpywiz.starwarsmovies.repos.MovieRepository
+import com.jumpywiz.starwarsmovies.repos.MovieListRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,5 +11,6 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun provideRepos(retrofitService: RetrofitService) = MovieRepository(retrofitService)
+    fun provideMovieRepos(dao: Dao, retrofitService: RetrofitService) =
+        MovieListRepository(dao, retrofitService)
 }

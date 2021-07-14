@@ -11,4 +11,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val director = itemView.findViewById(R.id.director_text) as TextView
     val producer = itemView.findViewById(R.id.producer_text) as TextView
     val date = itemView.findViewById(R.id.date_text) as TextView
+
+    override
 }

@@ -2,7 +2,7 @@ package com.jumpywiz.starwarsmovies.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieRequest(
+data class MovieListRequest(
 
     @SerializedName("count") val count: Int,
     @SerializedName("next") val next: String,

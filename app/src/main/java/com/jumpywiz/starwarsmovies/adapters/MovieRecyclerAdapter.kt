@@ -1,13 +1,14 @@
 package com.jumpywiz.starwarsmovies.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.ui.MovieViewHolder
 
-class MovieRecyclerAdapter : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieRecyclerAdapter(private val listener: View.OnClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
     private var movies: MutableList<Movie?> = mutableListOf()
 
 
@@ -23,6 +24,8 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         holder.director.text = movie.director
         holder.producer.text = movie.producers
         holder.date.text = movie.date
+
+        holder.itemView.setOnClickListener(listener)
     }
 
     override fun getItemCount(): Int {

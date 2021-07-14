@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class MovieListFragment : Fragment() {
     private var binding: FragmentMovieListBinding? = null
-
+    private var bundle: Bundle? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -34,7 +34,7 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
 
-        val adapter = MovieRecyclerAdapter()
+        val adapter = MovieRecyclerAdapter(createMovieClickListener())
         with(binding!!) {
             movieListRecyclerView.adapter = adapter
             movieListRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -54,5 +54,9 @@ class MovieListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    private fun createMovieClickListener(): View.OnClickListener {
+        return View.OnClickListener {  }
     }
 }
