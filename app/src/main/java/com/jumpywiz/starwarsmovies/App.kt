@@ -1,18 +1,20 @@
 package com.jumpywiz.starwarsmovies
 
 import android.app.Application
-import com.jumpywiz.starwarsmovies.di.AppComponent
-import com.jumpywiz.starwarsmovies.di.AppModule
-import com.jumpywiz.starwarsmovies.di.DaggerAppComponent
-import com.jumpywiz.starwarsmovies.di.DatabaseModule
+import com.jumpywiz.starwarsmovies.di.*
 
-class App: Application() {
+class App : Application() {
     companion object {
         lateinit var appComponent: AppComponent
     }
+
     override fun onCreate() {
         super.onCreate()
         appComponent =
-            DaggerAppComponent.create()
+            DaggerAppComponent.builder().appModule(AppModule(context = this.applicationContext))
+                .databaseModule(
+                    DatabaseModule()
+                ).netModule(NetModule()).repositoryModule(RepositoryModule())
+                .build()
     }
 }

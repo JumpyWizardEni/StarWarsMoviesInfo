@@ -5,8 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.jumpywiz.starwarsmovies.converter.CharacterTypeConverter
+import com.jumpywiz.starwarsmovies.model.MovieDB
 
-@Database(entities = arrayOf(GroupEntity::class, MarkEntity::class), version = 3)
+@Database(entities = [MovieDB::class], version = 1, exportSchema = false)
+@TypeConverters(CharacterTypeConverter::class)
+
 abstract class MainDatabase: RoomDatabase() {
     abstract fun Dao(): Dao
     companion object{

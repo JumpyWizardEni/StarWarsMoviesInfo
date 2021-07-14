@@ -22,7 +22,7 @@ class MovieRecyclerAdapter(private val listener: View.OnClickListener) : Recycle
         val movie = movies[position]!!
         holder.title.text = movie.title
         holder.director.text = movie.director
-        holder.producer.text = movie.producers
+        holder.producer.text = movie.producer
         holder.date.text = movie.date
 
         holder.itemView.setOnClickListener(listener)
