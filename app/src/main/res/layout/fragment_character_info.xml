@@ -5,11 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.CharacterInfoFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/character_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem = "@layout/character_view_holder"/>
+
 
 
 

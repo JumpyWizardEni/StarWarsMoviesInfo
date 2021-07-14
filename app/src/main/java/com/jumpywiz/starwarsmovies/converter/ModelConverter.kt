@@ -1,8 +1,10 @@
 package com.jumpywiz.starwarsmovies.converter
 
+import com.jumpywiz.starwarsmovies.model.CharacterRequest
 import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.model.MovieDB
 import com.jumpywiz.starwarsmovies.model.MovieData
+import com.jumpywiz.starwarsmovies.model.Character
 
 object ModelConverter {
     fun requestToMovie(data: MovieData): Movie {
@@ -37,5 +39,9 @@ object ModelConverter {
             data.episode_id,
             data.charactersURLs
         )
+    }
+
+    fun requestToCharacter(data: CharacterRequest): Character {
+        return Character(data.name, data.gender, data.birth_year)
     }
 }

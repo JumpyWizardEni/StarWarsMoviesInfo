@@ -10,7 +10,8 @@ import com.jumpywiz.starwarsmovies.model.MovieDB
 interface Dao {
     @Query("SELECT * FROM moviedb")
     suspend fun getAllMovies(): List<MovieDB>
-
+    @Query("SELECT * FROM moviedb where episode_id = :id")
+    suspend fun getMovie(id: Int) : List<MovieDB>
     @Insert
     suspend fun setAllMovies(movies: List<MovieDB>)
 }

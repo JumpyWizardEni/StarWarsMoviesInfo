@@ -9,7 +9,7 @@ import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.ui.MovieViewHolder
 
-class MovieRecyclerAdapter(private val listener: MovieClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieListAdapter(private val listener: MovieClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
     private var movies: MutableList<Movie?> = mutableListOf()
 
 

@@ -2,6 +2,7 @@ package com.jumpywiz.starwarsmovies.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.jumpywiz.starwarsmovies.viewmodels.MovieInfoViewModel
 import com.jumpywiz.starwarsmovies.viewmodels.MovieListViewModel
 import dagger.Binds
 import dagger.Module
@@ -16,5 +17,10 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MovieListViewModel::class)
-    internal abstract fun postListViewModel(viewModel: MovieListViewModel): ViewModel
+    internal abstract fun postMovieListViewModel(viewModel: MovieListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieInfoViewModel::class)
+    internal abstract fun postMovieInfoViewModel(viewModel: MovieInfoViewModel): ViewModel
 }
