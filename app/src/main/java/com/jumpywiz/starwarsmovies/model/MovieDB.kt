@@ -9,10 +9,11 @@ import com.jumpywiz.starwarsmovies.converter.CharacterTypeConverter
 @Entity
 data class MovieDB(
 
-    val title: String?,
-    val director: String?,
-    val producer: String?,
-    val date: String?,
-    val charactersURLs: List<String?>,
-    @PrimaryKey(autoGenerate = true) val id: Int = 0
+    val title: String,
+    val director: String,
+    val producer: String,
+    val date: String,
+    val charactersURLs: List<String>,
+    val episode_id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 )

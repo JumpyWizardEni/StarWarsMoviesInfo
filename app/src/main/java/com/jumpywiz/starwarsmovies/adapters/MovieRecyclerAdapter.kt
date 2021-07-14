@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.model.Movie
+import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.ui.MovieViewHolder
 
-class MovieRecyclerAdapter(private val listener: View.OnClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieRecyclerAdapter(private val listener: MovieClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
     private var movies: MutableList<Movie?> = mutableListOf()
 
 
@@ -25,6 +26,7 @@ class MovieRecyclerAdapter(private val listener: View.OnClickListener) : Recycle
         holder.producer.text = movie.producer
         holder.date.text = movie.date
 
+        listener.characterList = movie.characterURLs
         holder.itemView.setOnClickListener(listener)
     }
 

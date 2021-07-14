@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.jumpywiz.starwarsmovies.converter.CharacterTypeConverter
 import com.jumpywiz.starwarsmovies.model.MovieDB
 
-@Database(entities = [MovieDB::class], version = 1, exportSchema = false)
+@Database(entities = [MovieDB::class], version = 2, exportSchema = false)
 @TypeConverters(CharacterTypeConverter::class)
 
 abstract class MainDatabase: RoomDatabase() {
