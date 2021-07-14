@@ -15,7 +15,6 @@ class MovieInfoRepository(private val dao: Dao, private val retrofit: RetrofitSe
         movie[0].charactersURLs.forEach {
             val strSplit = it.split("/")
             val request = retrofit.getCharacterInfo(strSplit[strSplit.size - 2].toInt())
-            println(strSplit[strSplit.size - 2].toInt())
             chars.add(requestToCharacter(request!!)) //TODO(NULL EXCEPTION)
         }
         return chars

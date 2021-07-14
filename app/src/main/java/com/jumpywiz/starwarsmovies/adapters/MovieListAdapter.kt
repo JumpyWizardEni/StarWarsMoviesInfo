@@ -1,5 +1,6 @@
 package com.jumpywiz.starwarsmovies.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.ui.MovieViewHolder
 
-class MovieListAdapter(private val listener: MovieClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.Adapter<MovieViewHolder>() {
     private var movies: MutableList<Movie?> = mutableListOf()
 
 
@@ -26,7 +27,7 @@ class MovieListAdapter(private val listener: MovieClickListener) : RecyclerView.
         holder.producer.text = movie.producer
         holder.date.text = movie.date
 
-        listener.id = movie.episode_id
+        val listener = MovieClickListener(movie.episode_id, nav)
         holder.itemView.setOnClickListener(listener)
     }
 

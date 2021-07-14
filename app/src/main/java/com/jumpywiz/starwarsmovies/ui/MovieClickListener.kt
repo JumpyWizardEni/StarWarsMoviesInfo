@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.jumpywiz.starwarsmovies.R
 
-class MovieClickListener(private val nav: (Int, Bundle?) -> Unit): View.OnClickListener {
-    var id = 0
+class MovieClickListener(private val id: Int, private val nav: (Int, Bundle?) -> Unit): View.OnClickListener {
     override fun onClick(p0: View?) {
         val bundle = Bundle().apply {
             putInt("MOVIE_ID", id)
