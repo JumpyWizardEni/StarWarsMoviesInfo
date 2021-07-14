@@ -6,7 +6,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieActivity : AppCompatActivity() {
 
 

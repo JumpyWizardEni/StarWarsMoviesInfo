@@ -7,10 +7,13 @@ import com.jumpywiz.starwarsmovies.repos.MovieInfoRepository
 import com.jumpywiz.starwarsmovies.repos.MovieListRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+@InstallIn(SingletonComponent::class)
+object RepositoryModule {
     @Provides
     @Singleton
     fun provideMovieListRepos(dao: Dao, retrofitService: RetrofitService) =

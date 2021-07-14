@@ -5,10 +5,10 @@ import android.view.View
 import com.jumpywiz.starwarsmovies.R
 
 class MovieClickListener(private val nav: (Int, Bundle?) -> Unit): View.OnClickListener {
-    var characterList: List<String> = listOf()
+    var id = 0
     override fun onClick(p0: View?) {
         val bundle = Bundle().apply {
-            putStringArrayList("CHARS", ArrayList<String>(characterList))
+            putInt("MOVIE_ID", id)
         }
         nav(R.id.movieInfoFragment, bundle)
     }

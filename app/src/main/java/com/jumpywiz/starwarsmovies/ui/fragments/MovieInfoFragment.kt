@@ -5,25 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jumpywiz.starwarsmovies.App
 import com.jumpywiz.starwarsmovies.adapters.MovieInfoAdapter
-import com.jumpywiz.starwarsmovies.adapters.MovieListAdapter
 import com.jumpywiz.starwarsmovies.databinding.FragmentMovieInfoBinding
-import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.viewmodels.MovieInfoViewModel
-import com.jumpywiz.starwarsmovies.viewmodels.MovieListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
 
     private var binding: FragmentMovieInfoBinding? = null
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: MovieInfoViewModel.AssistedFactory
+
+    val viewModel: MovieInfoViewModel by viewModels {
+        MovieInfoViewModel.provideFactory(viewModelFactory, requireArguments()["MOVIE_ID"] as Int)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,19 +39,12 @@ class MovieInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        App.appComponent.inject(this)
 
         val adapter = MovieInfoAdapter()
         with(binding!!) {
             characterRecyclerView.adapter = adapter
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
         }
-
-        val viewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            ).get(MovieInfoViewModel::class.java)
 
         viewModel.chars.observe(viewLifecycleOwner, Observer { charsList ->
             adapter.setData(charsList)

@@ -1,17 +1,22 @@
 package com.jumpywiz.starwarsmovies.di
 
+import android.app.Application
 import android.content.Context
 import com.jumpywiz.starwarsmovies.db.MainDatabase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDB(context: Context) = MainDatabase.getInstance(context)
+    fun provideDB(@ApplicationContext context: Context) = MainDatabase.getInstance(context)
 
     @Provides
     fun provideDAO(db: MainDatabase) = db.Dao()

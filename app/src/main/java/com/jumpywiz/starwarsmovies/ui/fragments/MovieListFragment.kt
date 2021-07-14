@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,15 +15,14 @@ import com.jumpywiz.starwarsmovies.adapters.MovieListAdapter
 import com.jumpywiz.starwarsmovies.databinding.FragmentMovieListBinding
 import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.viewmodels.MovieListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MovieListFragment : Fragment() {
     private var binding: FragmentMovieListBinding? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    val viewModel: MovieListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +34,6 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.appComponent.inject(this)
-
-        val viewModel =
-            ViewModelProvider(
-                requireActivity(),
-                viewModelFactory
-            ).get(MovieListViewModel::class.java)
 
 
         val navigate: (Int, Bundle?) -> Unit = { i: Int, bundle: Bundle? ->

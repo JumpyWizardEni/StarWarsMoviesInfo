@@ -5,12 +5,15 @@ import com.google.gson.GsonBuilder
 import com.jumpywiz.starwarsmovies.net.RetrofitService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetModule {
+@InstallIn(SingletonComponent::class)
+object NetModule {
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson) = Retrofit.Builder()
