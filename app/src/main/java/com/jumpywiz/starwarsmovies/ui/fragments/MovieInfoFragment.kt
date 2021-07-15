@@ -52,6 +52,7 @@ class MovieInfoFragment : Fragment() {
         val actionBar: ActionBar = (activity as AppCompatActivity).supportActionBar!!
         actionBar.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = requireArguments()["MOVIE_TITLE"] as String
         val adapter = MovieInfoAdapter(navigate)
         with(binding!!) {
             characterRecyclerView.adapter = adapter

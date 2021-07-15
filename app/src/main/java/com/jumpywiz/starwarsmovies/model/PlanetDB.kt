@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity
 data class PlanetDB(
     val name: String,
-    val diameter: Int,
+    val diameter: String,
     val climate: String,
     val gravity: String,
     val terrain: String,
-    val population: Int,
+    val population: String,
     val url: String,
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 )

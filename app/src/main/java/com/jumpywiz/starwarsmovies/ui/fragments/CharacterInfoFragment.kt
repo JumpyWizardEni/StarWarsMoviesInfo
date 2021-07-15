@@ -45,6 +45,7 @@ class CharacterInfoFragment : Fragment() {
         val actionBar: ActionBar = (activity as AppCompatActivity).supportActionBar!!
         actionBar.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = requireArguments()["CHAR_NAME"] as String
 
         viewModel.char.observe(viewLifecycleOwner, Observer {
             val char = it.first

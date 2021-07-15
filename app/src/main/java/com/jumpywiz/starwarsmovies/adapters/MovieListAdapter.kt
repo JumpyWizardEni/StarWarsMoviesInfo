@@ -28,7 +28,7 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.A
         holder.producer.text = movie.producer
         holder.date.text = movie.date
 
-        val listener = MovieClickListener(movie.episode_id, nav)
+        val listener = MovieClickListener(movie.title, movie.episode_id, nav)
         holder.itemView.setOnClickListener(listener)
     }
 

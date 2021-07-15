@@ -25,7 +25,7 @@ class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.A
         holder.sex.text = char.sex
         holder.birthDate.text = char.birthDate
         
-        val listener = CharacterClickListener(char.url, nav)
+        val listener = CharacterClickListener(char.name, char.url, nav)
         holder.itemView.setOnClickListener(listener)
     }
 
