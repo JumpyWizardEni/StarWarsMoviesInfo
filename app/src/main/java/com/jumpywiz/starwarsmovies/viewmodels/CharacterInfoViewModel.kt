@@ -1,5 +1,6 @@
 package com.jumpywiz.starwarsmovies.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.model.Planet
@@ -17,6 +18,7 @@ class CharacterInfoViewModel @AssistedInject constructor(
 
     init {
         getCharInfo()
+        Log.d("Init object", "[CharacterInfoViewModel::]Initing viewModel")
     }
 
     fun getCharInfo() {

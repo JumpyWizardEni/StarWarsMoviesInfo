@@ -19,7 +19,7 @@ class MovieInfoViewModel @AssistedInject constructor(
 
     init {
         getChars()
-        Log.d("[MovieInfoViewModel]", "Initing viewModel")
+        Log.d("Init object", "[MovieInfoViewModel::]Initing viewModel")
     }
 
     fun getChars() {

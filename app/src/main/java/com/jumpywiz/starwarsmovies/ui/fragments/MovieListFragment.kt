@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,12 +31,16 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMovieListBinding.inflate(layoutInflater)
+        setHasOptionsMenu(true)
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val actionBar: ActionBar = (activity as AppCompatActivity).supportActionBar!!
+        actionBar.setHomeButtonEnabled(false)
+        actionBar.setDisplayHomeAsUpEnabled(false)
 
         val navigate: (Int, Bundle?) -> Unit = { i: Int, bundle: Bundle? ->
             findNavController().navigate(i, bundle)
