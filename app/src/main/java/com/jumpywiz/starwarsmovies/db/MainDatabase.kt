@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jumpywiz.starwarsmovies.converter.CharacterTypeConverter
+import com.jumpywiz.starwarsmovies.model.CharacterDB
 import com.jumpywiz.starwarsmovies.model.MovieDB
+import com.jumpywiz.starwarsmovies.model.PlanetDB
 
-@Database(entities = [MovieDB::class], version = 2, exportSchema = false)
+@Database(entities = [MovieDB::class, CharacterDB::class, PlanetDB::class], version = 1, exportSchema = false)
 @TypeConverters(CharacterTypeConverter::class)
 
 abstract class MainDatabase: RoomDatabase() {

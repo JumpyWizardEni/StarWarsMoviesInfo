@@ -17,7 +17,7 @@ object NetModule {
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson) = Retrofit.Builder()
-        .baseUrl(RetrofitService.url)
+        .baseUrl(RetrofitService.URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
     @Provides

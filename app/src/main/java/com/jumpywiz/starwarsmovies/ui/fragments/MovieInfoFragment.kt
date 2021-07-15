@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jumpywiz.starwarsmovies.App
@@ -38,9 +39,13 @@ class MovieInfoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val navigate: (Int, Bundle?) -> Unit = { i: Int, bundle: Bundle? ->
+            findNavController().navigate(i, bundle)
+        }
 
-        val adapter = MovieInfoAdapter()
+        val adapter = MovieInfoAdapter(navigate)
         with(binding!!) {
             characterRecyclerView.adapter = adapter
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -51,7 +56,6 @@ class MovieInfoFragment : Fragment() {
         }
         )
 
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

@@ -6,8 +6,12 @@ import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToCharacter
 import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.net.RetrofitService
 import com.jumpywiz.starwarsmovies.model.Character
+import javax.inject.Inject
 
-class MovieInfoRepository(private val dao: Dao, private val retrofit: RetrofitService) :
+class MovieInfoRepository @Inject constructor(
+    private val dao: Dao,
+    private val retrofit: RetrofitService
+) :
     Repository {
     suspend fun getChars(id: Int): List<Character> {
         val movie = dao.getMovie(id)

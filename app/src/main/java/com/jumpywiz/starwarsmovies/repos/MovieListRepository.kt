@@ -8,8 +8,12 @@ import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.model.MovieDB
 import com.jumpywiz.starwarsmovies.net.RetrofitService
+import javax.inject.Inject
 
-class MovieListRepository(private val dao: Dao, private val retrofit: RetrofitService) :
+class MovieListRepository @Inject constructor(
+    private val dao: Dao,
+    private val retrofit: RetrofitService
+) :
     Repository {
 
     suspend fun getMoviesList(): List<Movie> {

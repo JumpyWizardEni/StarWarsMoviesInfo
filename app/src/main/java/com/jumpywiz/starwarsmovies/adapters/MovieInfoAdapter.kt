@@ -1,13 +1,15 @@
 package com.jumpywiz.starwarsmovies.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.ui.CharacterViewHolder
 import com.jumpywiz.starwarsmovies.model.Character
+import com.jumpywiz.starwarsmovies.ui.CharacterClickListener
 
-class MovieInfoAdapter() : RecyclerView.Adapter<CharacterViewHolder>() {
+class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.Adapter<CharacterViewHolder>() {
     private var chars: MutableList<Character> = mutableListOf()
 
 
@@ -22,6 +24,9 @@ class MovieInfoAdapter() : RecyclerView.Adapter<CharacterViewHolder>() {
         holder.name.text = char.name
         holder.sex.text = char.sex
         holder.birthDate.text = char.birthDate
+        
+        val listener = CharacterClickListener(char.url, nav)
+        holder.itemView.setOnClickListener(listener)
     }
 
     override fun getItemCount(): Int {

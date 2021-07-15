@@ -14,6 +14,6 @@ data class MovieDB(
     val producer: String,
     val date: String,
     val charactersURLs: List<String>,
-    val episode_id: Int,
+    val episodeId: Int,
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 )

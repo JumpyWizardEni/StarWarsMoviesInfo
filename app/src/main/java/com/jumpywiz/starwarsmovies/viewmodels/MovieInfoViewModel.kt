@@ -1,5 +1,6 @@
 package com.jumpywiz.starwarsmovies.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.repos.MovieInfoRepository
@@ -16,11 +17,9 @@ class MovieInfoViewModel @AssistedInject constructor(
     private val charsData: MutableLiveData<List<Character>> = MutableLiveData()
     val chars: LiveData<List<Character>> = charsData
 
-
-
-
     init {
         getChars()
+        Log.d("[MovieInfoViewModel]", "Initing viewModel")
     }
 
     fun getChars() {

@@ -1,10 +1,6 @@
 package com.jumpywiz.starwarsmovies.converter
 
-import com.jumpywiz.starwarsmovies.model.CharacterRequest
-import com.jumpywiz.starwarsmovies.model.Movie
-import com.jumpywiz.starwarsmovies.model.MovieDB
-import com.jumpywiz.starwarsmovies.model.MovieData
-import com.jumpywiz.starwarsmovies.model.Character
+import com.jumpywiz.starwarsmovies.model.*
 
 object ModelConverter {
     fun requestToMovie(data: MovieData): Movie {
@@ -36,12 +32,55 @@ object ModelConverter {
             data.director,
             data.producer,
             data.date,
-            data.episode_id,
+            data.episodeId,
             data.charactersURLs
         )
     }
 
     fun requestToCharacter(data: CharacterRequest): Character {
-        return Character(data.name, data.gender, data.birth_year)
+        return Character(data.name, data.gender, data.birth_year, data.url, data.homeworld)
     }
+
+    fun requestToCharacterDB(data: CharacterRequest): CharacterDB {
+        return CharacterDB(data.name, data.gender, data.birth_year, data.url, data.homeworld)
+    }
+
+    fun dbToCharacter(data: CharacterDB): Character {
+        return Character(data.name, data.sex, data.birthDate, data.url, data.planet)
+    }
+
+    fun requestToPlanet(data: PlanetRequest): Planet {
+        return Planet(
+            data.name,
+            data.diameter,
+            data.climate,
+            data.gravity,
+            data.terrain,
+            data.population
+        )
+    }
+
+    fun requestToPlanetDB(data: PlanetRequest): PlanetDB {
+        return PlanetDB(
+            data.name,
+            data.diameter,
+            data.climate,
+            data.gravity,
+            data.terrain,
+            data.population,
+            data.url
+        )
+    }
+
+    fun dbToPlanet(data: PlanetDB): Planet {
+        return Planet(
+            data.name,
+            data.diameter,
+            data.climate,
+            data.gravity,
+            data.terrain,
+            data.population
+        )
+    }
+
 }
