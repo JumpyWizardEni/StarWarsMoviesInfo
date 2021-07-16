@@ -1,25 +1,21 @@
 package com.jumpywiz.starwarsmovies.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jumpywiz.starwarsmovies.App
 import com.jumpywiz.starwarsmovies.adapters.MovieListAdapter
 import com.jumpywiz.starwarsmovies.databinding.FragmentMovieListBinding
-import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.viewmodels.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
@@ -57,6 +53,19 @@ class MovieListFragment : Fragment() {
         viewModel.movies.observe(viewLifecycleOwner, Observer { movies ->
             adapter.setData(movies)
         })
+
+        binding!!.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.getFilter().filter(newText)
+                return true
+            }
+        })
+
 
     }
 

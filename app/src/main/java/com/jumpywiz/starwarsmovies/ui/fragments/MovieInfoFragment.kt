@@ -55,13 +55,17 @@ class MovieInfoFragment : Fragment() {
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
         }
 
-        viewModel.setNewId(requireArguments()["MOVIE_ID"] as Int)
 
         viewModel.chars.observe(viewLifecycleOwner, Observer { charsList ->
             adapter.setData(charsList)
         }
         )
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setNewId(requireArguments()["MOVIE_ID"] as Int)
     }
 
     override fun onDestroyView() {

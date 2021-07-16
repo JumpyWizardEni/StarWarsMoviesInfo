@@ -7,41 +7,27 @@ import com.jumpywiz.starwarsmovies.model.Planet
 import com.jumpywiz.starwarsmovies.repos.CharacterRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterInfoViewModel @AssistedInject constructor(
-    private val repos: CharacterRepository,
-    @Assisted private val charUrl: String
+@HiltViewModel
+class CharacterInfoViewModel @Inject constructor(
+    private val repos: CharacterRepository
 ) : ViewModel() {
     private val charData: MutableLiveData<Pair<Character, Planet>> = MutableLiveData()
     val char: LiveData<Pair<Character, Planet>> = charData
 
-    init {
-        getCharInfo()
-        Log.d("Init object", "[CharacterInfoViewModel::]Initing viewModel")
-    }
-
+    private var charUrl: String? = null
     fun getCharInfo() {
         viewModelScope.launch {
-            charData.value = repos.getCharAndPlanetInfo(charUrl)
+            charData.value = repos.getCharAndPlanetInfo(charUrl!!)
         }
     }
 
-    @dagger.assisted.AssistedFactory
-    interface AssistedFactory {
-        fun create(url: String): CharacterInfoViewModel
-    }
-
-    companion object {
-        fun provideFactory(
-            assistedFactory: AssistedFactory,
-            url: String
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return assistedFactory.create(url) as T
-            }
-        }
+    fun setNewURL(url: String) {
+        charUrl = url
+        getCharInfo()
     }
 
 }

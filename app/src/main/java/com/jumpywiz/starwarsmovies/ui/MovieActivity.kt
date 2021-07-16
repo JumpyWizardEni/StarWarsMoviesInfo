@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.databinding.ActivityMainBinding
+import com.jumpywiz.starwarsmovies.viewmodels.CharacterInfoViewModel
 import com.jumpywiz.starwarsmovies.viewmodels.MovieInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,6 +28,8 @@ class MovieActivity : AppCompatActivity() {
     private val movieListViewModel: ViewModel by viewModels()
 
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
+
+    private val characterViewModel: CharacterInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

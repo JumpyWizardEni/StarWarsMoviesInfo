@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -23,12 +24,7 @@ class CharacterInfoFragment : Fragment() {
 
     private var binding: FragmentCharacterInfoBinding? = null
 
-    @Inject
-    lateinit var viewModelFactory: CharacterInfoViewModel.AssistedFactory
-
-    val viewModel: CharacterInfoViewModel by viewModels {
-        CharacterInfoViewModel.provideFactory(viewModelFactory, requireArguments()["CHAR_URL"] as String)
-    }
+    private val viewModel: CharacterInfoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +59,7 @@ class CharacterInfoFragment : Fragment() {
                 populationText.text = planet.population.toString()
             }
         })
+
     }
 
     override fun onDestroyView() {
@@ -79,6 +76,11 @@ class CharacterInfoFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setNewURL(requireArguments()["CHAR_URL"] as String)
     }
 
 }
