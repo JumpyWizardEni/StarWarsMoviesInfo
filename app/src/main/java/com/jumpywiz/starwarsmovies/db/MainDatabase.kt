@@ -10,7 +10,7 @@ import com.jumpywiz.starwarsmovies.model.CharacterDB
 import com.jumpywiz.starwarsmovies.model.MovieDB
 import com.jumpywiz.starwarsmovies.model.PlanetDB
 
-@Database(entities = [MovieDB::class, CharacterDB::class, PlanetDB::class], version = 2, exportSchema = false)
+@Database(entities = [MovieDB::class, CharacterDB::class, PlanetDB::class], version = 1, exportSchema = false)
 @TypeConverters(CharacterTypeConverter::class)
 
 abstract class MainDatabase: RoomDatabase() {

@@ -10,6 +10,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.jumpywiz.starwarsmovies.net.Result
 
 @HiltViewModel
 class MovieInfoViewModel @Inject constructor(
@@ -17,11 +18,24 @@ class MovieInfoViewModel @Inject constructor(
 ) : ViewModel() {
     private val charsData: MutableLiveData<List<Character>> = MutableLiveData()
     val chars: LiveData<List<Character>> = charsData
+
+    private val isLoadingData: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading = isLoadingData as LiveData<Boolean>
+
     var id: Int = 0
 
     fun getChars() {
+        isLoadingData.value = true
         viewModelScope.launch {
-            charsData.value = repos.getChars(id)
+            when(val result = repos.getChars(id)) {
+                is Result.Success -> {
+                    isLoadingData.postValue(false)
+                    charsData.value = result.data
+                }
+                is Result.Loading -> {
+                    isLoadingData.postValue(true)
+                }
+            }
         }
     }
 

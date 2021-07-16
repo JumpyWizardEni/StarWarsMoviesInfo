@@ -2,6 +2,7 @@ package com.jumpywiz.starwarsmovies.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jumpywiz.starwarsmovies.net.RemoteServiceImpl
 import com.jumpywiz.starwarsmovies.net.RetrofitService
 import dagger.Module
 import dagger.Provides
@@ -24,4 +25,7 @@ object NetModule {
     fun provideRetrofitService(retrofit: Retrofit) = retrofit.create(RetrofitService::class.java)
     @Provides
     fun provideGsonFactory() = GsonBuilder().setLenient().create()
+
+    @Provides
+    fun provideRemoteService(retrofitService: RetrofitService) = RemoteServiceImpl(retrofitService)
 }

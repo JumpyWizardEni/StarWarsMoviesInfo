@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -57,9 +56,10 @@ class MovieListFragment : Fragment() {
             })
 
             isLoading.observe(viewLifecycleOwner, Observer { state ->
-                binding!!.loadingProgressBar.isVisible = state
-                binding!!.movieListRecyclerView.isVisible = !state
-
+                with(binding!!) {
+                    loadingProgressBar.isVisible = state
+                    movieListRecyclerView.isVisible = !state
+                }
             })
         }
 

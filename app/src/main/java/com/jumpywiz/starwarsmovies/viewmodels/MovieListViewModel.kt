@@ -22,9 +22,6 @@ class MovieListViewModel @Inject constructor(private val repos: MovieListReposit
     private val isLoadingData: MutableLiveData<Boolean> = MutableLiveData()
     val isLoading = isLoadingData as LiveData<Boolean>
 
-    private val movieData: MutableLiveData<Movie> = MutableLiveData()
-    val movie: LiveData<Movie> = MutableLiveData()
-
     init {
         getMoviesList()
         Log.d("Init object", "[MovieListViewModel::]Initing viewModel")

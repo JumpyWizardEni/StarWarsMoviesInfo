@@ -7,13 +7,14 @@ import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToMovieDB
 import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.model.MovieDB
-import com.jumpywiz.starwarsmovies.net.RetrofitService
+import com.jumpywiz.starwarsmovies.net.IRemoteService
+import com.jumpywiz.starwarsmovies.net.RemoteServiceImpl
 import com.jumpywiz.starwarsmovies.net.Result
 import javax.inject.Inject
 
 class MovieListRepository @Inject constructor(
     private val dao: Dao,
-    private val retrofit: RetrofitService
+    private val remote: IRemoteService
 ) :
     Repository {
 
@@ -22,7 +23,7 @@ class MovieListRepository @Inject constructor(
         val data: MutableList<Movie> = mutableListOf()
         if (movies.isEmpty()) {
             Log.d("[MovieListRepository]", "Movies list from From Net")
-            val request = retrofit.getMoviesList()
+            val request = remote.getMoviesList()
             when(request) {
                 is Result.Success -> {
                     if (request.data != null) {

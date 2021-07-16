@@ -23,13 +23,7 @@ class CharacterRepository (
         /*At this screen character must be in the DB, but in unique cases
         it can be DB miss, so check it*/
         val charList = dao.getCharacter(charUrl)
-        if (charList.isEmpty()) {
-            val splitString = charUrl.split("/")
-            val charRequest = retrofit.getCharacterInfo(splitString[splitString.size - 2].toInt())
-            val character = requestToCharacterDB(charRequest!!) //TODO EXCEPTIONS
-            dao.setCharacter(character)
-            return Pair(dbToCharacter(character), requestToPlanet(getPlanetInfo(character)))
-        } else {
+
             val character = charList[0]
             val planetList = dao.getPlanet(character.planet)
             if (planetList.isEmpty()) { //planet is not downloaded yet
@@ -38,7 +32,6 @@ class CharacterRepository (
             } else {
                 return Pair(dbToCharacter(character), dbToPlanet(planetList[0]))
             }
-        }
     }
 
     private suspend fun getPlanetInfo(char: CharacterDB): PlanetRequest {
