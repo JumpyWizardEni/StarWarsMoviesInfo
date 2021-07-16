@@ -10,23 +10,36 @@ import com.jumpywiz.starwarsmovies.repos.MovieListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.jumpywiz.starwarsmovies.net.Result
+
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(private val repos: MovieListRepository): ViewModel(){
+class MovieListViewModel @Inject constructor(private val repos: MovieListRepository) : ViewModel() {
 
     private val moviesData: MutableLiveData<List<Movie>> = MutableLiveData()
     val movies: LiveData<List<Movie>> = moviesData
 
+    private val isLoadingData: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading = isLoadingData as LiveData<Boolean>
+
     private val movieData: MutableLiveData<Movie> = MutableLiveData()
     val movie: LiveData<Movie> = MutableLiveData()
+
     init {
         getMoviesList()
         Log.d("Init object", "[MovieListViewModel::]Initing viewModel")
     }
 
     fun getMoviesList() {
+        isLoadingData.value = true
         viewModelScope.launch {
-            moviesData.value = repos.getMoviesList()
+            when (val result = repos.getMoviesList()) {
+                is Result.Success -> {
+                    isLoadingData.postValue(false)
+                    moviesData.value = result.data
+                }
+                is Result.Loading -> isLoadingData.postValue(true)
+            }
         }
     }
 

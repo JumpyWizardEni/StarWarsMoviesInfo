@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface RetrofitService {
     @GET("films")
-    suspend fun getMoviesList(): MovieListRequest?
+    suspend fun getMoviesList(): Result<MovieListRequest>
 
     @GET("people/{id}")
     suspend fun getCharacterInfo(@Path("id") id: Int): CharacterRequest?

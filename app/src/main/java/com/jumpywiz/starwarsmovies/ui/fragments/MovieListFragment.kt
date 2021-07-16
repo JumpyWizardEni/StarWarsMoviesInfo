@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -50,9 +51,17 @@ class MovieListFragment : Fragment() {
             movieListRecyclerView.layoutManager = LinearLayoutManager(view.context)
         }
 
-        viewModel.movies.observe(viewLifecycleOwner, Observer { movies ->
-            adapter.setData(movies)
-        })
+        with(viewModel) {
+            movies.observe(viewLifecycleOwner, Observer { movies ->
+                adapter.setData(movies)
+            })
+
+            isLoading.observe(viewLifecycleOwner, Observer { state ->
+                binding!!.loadingProgressBar.isVisible = state
+                binding!!.movieListRecyclerView.isVisible = !state
+
+            })
+        }
 
         binding!!.searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
