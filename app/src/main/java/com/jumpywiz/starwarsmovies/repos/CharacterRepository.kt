@@ -10,34 +10,43 @@ import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.model.CharacterDB
 import com.jumpywiz.starwarsmovies.model.Planet
 import com.jumpywiz.starwarsmovies.model.PlanetRequest
-import com.jumpywiz.starwarsmovies.net.RetrofitService
+import com.jumpywiz.starwarsmovies.net.IRemoteService
+import com.jumpywiz.starwarsmovies.net.Result
 import javax.inject.Inject
 
-class CharacterRepository (
+class CharacterRepository @Inject constructor(
     private val dao: Dao,
-    private val retrofit: RetrofitService
+    private val remote: IRemoteService
 ) :
     Repository {
-
-    suspend fun getCharAndPlanetInfo(charUrl: String): Pair<Character, Planet> {
-        /*At this screen character must be in the DB, but in unique cases
-        it can be DB miss, so check it*/
+    suspend fun getCharAndPlanetInfo(charUrl: String): Result<Pair<Character, Planet>> {
         val charList = dao.getCharacter(charUrl)
+        val character = charList[0]
+        val planetList = dao.getPlanet(character.planet)
+        if (planetList.isEmpty()) { //planet is not downloaded yet
+            val splitString = character.planet.split("/")
+            return when (val request =
+                remote.getPlanetInfo(splitString[splitString.size - 2].toInt())) {
 
-            val character = charList[0]
-            val planetList = dao.getPlanet(character.planet)
-            if (planetList.isEmpty()) { //planet is not downloaded yet
-                getPlanetInfo(character)
-                return Pair(dbToCharacter(character), requestToPlanet(getPlanetInfo(character)))
-            } else {
-                return Pair(dbToCharacter(character), dbToPlanet(planetList[0]))
+                is Result.Success -> {
+                    dao.setPlanet(requestToPlanetDB(request.data!!))
+                    Result.Success(
+                        Pair(
+                            dbToCharacter(character),
+                            requestToPlanet(request.data)
+                        )
+                    )
+                }
+                is Result.Error -> {
+                    Result.Error(request.exception)
+                }
+                is Result.Loading -> {
+                    Result.Loading
+                }
             }
+        } else {
+            return Result.Success(Pair(dbToCharacter(character), dbToPlanet(planetList[0])))
+        }
     }
 
-    private suspend fun getPlanetInfo(char: CharacterDB): PlanetRequest {
-        val splitString = char.planet.split("/")
-        val request = retrofit.getPlanetInfo(splitString[splitString.size - 2].toInt())
-        dao.setPlanet(requestToPlanetDB(request!!))
-        return request
-    }
 }

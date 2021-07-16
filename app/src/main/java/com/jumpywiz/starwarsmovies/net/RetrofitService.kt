@@ -15,7 +15,7 @@ interface RetrofitService {
     suspend fun getCharacterInfo(@Path("id") id: Int): Response<CharacterRequest>
 
     @GET("planets/{id}")
-    suspend fun getPlanetInfo(@Path("id") id: Int): PlanetRequest?
+    suspend fun getPlanetInfo(@Path("id") id: Int): Response<PlanetRequest>
 
     companion object {
         const val URL = "https://swapi.dev/api/"

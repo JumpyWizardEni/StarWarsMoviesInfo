@@ -29,6 +29,6 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideCharRepos(dao: Dao, retrofitService: RetrofitService) =
-        CharacterRepository(dao, retrofitService)
+    fun provideCharRepos(dao: Dao, remote: RemoteServiceImpl) =
+        CharacterRepository(dao, remote)
 }

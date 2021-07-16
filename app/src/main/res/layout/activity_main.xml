@@ -22,5 +22,5 @@
         app:defaultNavHost="true"
         android:layout_weight="1"
         app:navGraph="@navigation/nav_graph"
-        tools:layout="@layout/fragment_movie_list"/>
+        tools:layout="@layout/fragment_character_info"/>
 </LinearLayout>
