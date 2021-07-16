@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,12 +27,7 @@ class MovieInfoFragment : Fragment() {
 
     private var binding: FragmentMovieInfoBinding? = null
 
-    @Inject
-    lateinit var viewModelFactory: MovieInfoViewModel.AssistedFactory
-
-    private val viewModel: MovieInfoViewModel by viewModels {
-        MovieInfoViewModel.provideFactory(viewModelFactory, requireArguments()["MOVIE_ID"] as Int)
-    }
+    private val viewModel: MovieInfoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +55,7 @@ class MovieInfoFragment : Fragment() {
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
         }
 
+        viewModel.setNewId(requireArguments()["MOVIE_ID"] as Int)
 
         viewModel.chars.observe(viewLifecycleOwner, Observer { charsList ->
             adapter.setData(charsList)
@@ -82,6 +79,5 @@ class MovieInfoFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 }

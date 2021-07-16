@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class MovieListFragment : Fragment() {
     private var binding: FragmentMovieListBinding? = null
 
-    val viewModel: MovieListViewModel by viewModels()
+    val viewModel: MovieListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +42,7 @@ class MovieListFragment : Fragment() {
         val actionBar: ActionBar = (activity as AppCompatActivity).supportActionBar!!
         actionBar.setHomeButtonEnabled(false)
         actionBar.setDisplayHomeAsUpEnabled(false)
-
+        actionBar.title = "Star Wars Movies"
         val navigate: (Int, Bundle?) -> Unit = { i: Int, bundle: Bundle? ->
             findNavController().navigate(i, bundle)
         }

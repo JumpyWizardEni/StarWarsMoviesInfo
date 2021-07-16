@@ -7,20 +7,17 @@ import com.jumpywiz.starwarsmovies.repos.MovieInfoRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieInfoViewModel @AssistedInject constructor(
-    private val repos: MovieInfoRepository,
-    @Assisted private val id: Int
+@HiltViewModel
+class MovieInfoViewModel @Inject constructor(
+    private val repos: MovieInfoRepository
 ) : ViewModel() {
     private val charsData: MutableLiveData<List<Character>> = MutableLiveData()
     val chars: LiveData<List<Character>> = charsData
-
-    init {
-        getChars()
-        Log.d("Init object", "[MovieInfoViewModel::]Initing viewModel")
-    }
+    var id: Int = 0
 
     fun getChars() {
         viewModelScope.launch {
@@ -28,21 +25,8 @@ class MovieInfoViewModel @AssistedInject constructor(
         }
     }
 
-    @dagger.assisted.AssistedFactory
-    interface AssistedFactory {
-        fun create(id: Int): MovieInfoViewModel
+    fun setNewId(newId: Int) {
+        id = newId
+        getChars()
     }
-
-    companion object {
-        fun provideFactory(
-            assistedFactory: AssistedFactory,
-            id: Int
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return assistedFactory.create(id) as T
-            }
-        }
-    }
-
 }
