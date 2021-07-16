@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardCornerRadius="10dp"
     tools:context=".ui.fragments.CharacterInfoFragment">
 
@@ -19,8 +19,7 @@
             <TextView
                 android:id="@+id/characterInfo_name_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/characterInfo_sex_text"
@@ -74,12 +73,13 @@
 
         <Button
             android:id="@+id/repeat_button"
-            android:visibility="invisible"
-            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:enabled="false"
             android:text="@string/repeat"
-            android:layout_gravity="center"/>
+            android:visibility="invisible" />
+
     </FrameLayout>
 
 

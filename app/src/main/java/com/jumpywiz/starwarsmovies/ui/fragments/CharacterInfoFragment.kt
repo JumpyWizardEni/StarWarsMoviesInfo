@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.jumpywiz.starwarsmovies.R
+import android.R
 import com.jumpywiz.starwarsmovies.databinding.FragmentCharacterInfoBinding
 import com.jumpywiz.starwarsmovies.viewmodels.CharacterInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,15 +64,16 @@ class CharacterInfoFragment : Fragment() {
             })
 
             isLoading.observe(viewLifecycleOwner, { state ->
-                with(binding!!) {
-                    loadingProgressBar.isVisible = state
-                    repeatButton.isVisible = !state
-                }
-                setVisibility(!state)
+                binding!!.loadingProgressBar.isVisible = state
+                setText(if (state == true) {View.GONE} else (View.VISIBLE))
             })
 
             onError.observe(viewLifecycleOwner, { state ->
-                binding!!.repeatButton.isEnabled = state
+                with(binding!!) {
+                    repeatButton.isEnabled = state
+                    repeatButton.isVisible = state
+                    setText(if (state == true) {View.GONE} else (planetNameText.visibility))
+                }
             })
         }
 
@@ -99,14 +100,17 @@ class CharacterInfoFragment : Fragment() {
         viewModel.setNewURL(requireArguments()["CHAR_URL"] as String)
     }
 
-    private fun setVisibility(state: Boolean) {
+    private fun setText(state: Int) {
         with(binding!!) {
-            planetNameText.isVisible = state
-            diameterText.isVisible = state
-            climateText.isVisible = state
-            gravityText.isVisible = state
-            terrainText.isVisible = state
-            populationText.isVisible = state
+            characterInfoNameText.visibility = state
+            characterInfoSexText.visibility = state
+            characterInfoBirthDateText.visibility = state
+            planetNameText.visibility = state
+            diameterText.visibility = state
+            climateText.visibility = state
+            gravityText.visibility = state
+            terrainText.visibility = state
+            populationText.visibility = state
         }
 
     }

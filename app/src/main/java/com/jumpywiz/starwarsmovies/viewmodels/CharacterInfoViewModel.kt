@@ -38,8 +38,8 @@ class CharacterInfoViewModel @Inject constructor(
                     isLoadingData.postValue(true)
                 }
                 is Result.Error -> {
-                    onErrorData.postValue(true)
                     isLoadingData.postValue(false)
+                    onErrorData.postValue(true)
                 }
             }
         }

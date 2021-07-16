@@ -22,6 +22,9 @@ class MovieListViewModel @Inject constructor(private val repos: MovieListReposit
     private val isLoadingData: MutableLiveData<Boolean> = MutableLiveData()
     val isLoading = isLoadingData as LiveData<Boolean>
 
+    private val onErrorData: MutableLiveData<Boolean> = MutableLiveData()
+    val onError = onErrorData as LiveData<Boolean>
+
     init {
         getMoviesList()
         Log.d("Init object", "[MovieListViewModel::]Initing viewModel")
@@ -29,13 +32,19 @@ class MovieListViewModel @Inject constructor(private val repos: MovieListReposit
 
     fun getMoviesList() {
         isLoadingData.value = true
+        onErrorData.value = false
         viewModelScope.launch {
             when (val result = repos.getMoviesList()) {
                 is Result.Success -> {
                     isLoadingData.postValue(false)
+                    onErrorData.postValue(false)
                     moviesData.value = result.data
                 }
                 is Result.Loading -> isLoadingData.postValue(true)
+                is Result.Error -> {
+                    isLoadingData.postValue(false)
+                    onErrorData.postValue(true)
+                }
             }
         }
     }

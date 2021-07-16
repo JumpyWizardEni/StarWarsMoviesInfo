@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jumpywiz.starwarsmovies.adapters.MovieListAdapter
@@ -26,7 +25,7 @@ class MovieListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMovieListBinding.inflate(layoutInflater)
         setHasOptionsMenu(true)
         return binding!!.root
@@ -48,17 +47,36 @@ class MovieListFragment : Fragment() {
         with(binding!!) {
             movieListRecyclerView.adapter = adapter
             movieListRecyclerView.layoutManager = LinearLayoutManager(view.context)
+            repeatButton.setOnClickListener {
+                viewModel.getMoviesList()
+            }
         }
 
         with(viewModel) {
-            movies.observe(viewLifecycleOwner, Observer { movies ->
+            movies.observe(viewLifecycleOwner, { movies ->
                 adapter.setData(movies)
             })
 
-            isLoading.observe(viewLifecycleOwner, Observer { state ->
+            isLoading.observe(viewLifecycleOwner, { state ->
                 with(binding!!) {
                     loadingProgressBar.isVisible = state
-                    movieListRecyclerView.isVisible = !state
+                    movieListRecyclerView.visibility = if (state == true) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
+                }
+            })
+
+            onError.observe(viewLifecycleOwner, { state ->
+                with(binding!!) {
+                    repeatButton.isEnabled = state
+                    repeatButton.isVisible = state
+                    movieListRecyclerView.visibility = if (state == true) {
+                        View.GONE
+                    } else {
+                        movieListRecyclerView.visibility
+                    }
                 }
             })
         }
@@ -70,7 +88,7 @@ class MovieListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                adapter.getFilter().filter(newText)
+                adapter.filter.filter(newText)
                 return true
             }
         })

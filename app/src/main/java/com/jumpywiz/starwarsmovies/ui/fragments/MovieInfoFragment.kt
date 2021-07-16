@@ -54,19 +54,41 @@ class MovieInfoFragment : Fragment() {
         with(binding!!) {
             characterRecyclerView.adapter = adapter
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
+            repeatButton.setOnClickListener {
+                viewModel.getChars()
+            }
         }
+
 
 
         with(viewModel) {
             chars.observe(viewLifecycleOwner, Observer { charsList ->
                 adapter.setData(charsList)
             })
+
             isLoading.observe(viewLifecycleOwner, Observer { state ->
                 with(binding!!) {
                     loadingProgressBar.isVisible = state
-                    characterRecyclerView.isVisible = !state
+                    characterRecyclerView.visibility = if (state == true) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
                 }
             })
+
+            onError.observe(viewLifecycleOwner, { state ->
+                with(binding!!) {
+                    repeatButton.isEnabled = state
+                    repeatButton.isVisible = state
+                    characterRecyclerView.visibility = if (state == true) {
+                        View.GONE
+                    } else {
+                        characterRecyclerView.visibility
+                    }
+                }
+            })
+
         }
 
     }

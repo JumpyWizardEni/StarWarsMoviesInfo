@@ -22,18 +22,28 @@ class MovieInfoViewModel @Inject constructor(
     private val isLoadingData: MutableLiveData<Boolean> = MutableLiveData()
     val isLoading = isLoadingData as LiveData<Boolean>
 
+    private val onErrorData: MutableLiveData<Boolean> = MutableLiveData()
+    val onError = onErrorData as LiveData<Boolean>
+
     var id: Int = 0
 
     fun getChars() {
         isLoadingData.value = true
+        onErrorData.value = false
         viewModelScope.launch {
             when(val result = repos.getChars(id)) {
                 is Result.Success -> {
                     isLoadingData.postValue(false)
                     charsData.value = result.data
+                    onErrorData.postValue(false)
                 }
                 is Result.Loading -> {
                     isLoadingData.postValue(true)
+                }
+                is Result.Error -> {
+                    isLoadingData.postValue(false)
+                    onErrorData.postValue(true)
+
                 }
             }
         }
