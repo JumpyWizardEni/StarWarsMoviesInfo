@@ -1,5 +1,6 @@
 package com.jumpywiz.starwarsmovies.adapters
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.jumpywiz.starwarsmovies.model.Movie
 import com.jumpywiz.starwarsmovies.ui.MovieClickListener
 import com.jumpywiz.starwarsmovies.ui.MovieViewHolder
 
-class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) :
+class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit, private val context: Context) :
     RecyclerView.Adapter<MovieViewHolder>(), Filterable {
     private var movies: MutableList<Movie> = mutableListOf()
     private var moviesFiltered: MutableList<Movie> = mutableListOf()
@@ -25,10 +26,11 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) :
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = moviesFiltered[position]
         holder.title.text = movie.title
-        holder.director.text = movie.director
-        holder.producer.text = movie.producer
+        holder.director.text =
+            String.format(context.resources.getString(R.string.director), movie.director)
+        holder.producer.text =
+            String.format(context.resources.getString(R.string.producer), movie.producer)
         holder.date.text = movie.date
-
         val listener = MovieClickListener(movie.title, movie.episode_id, nav)
         holder.itemView.setOnClickListener(listener)
     }
@@ -53,7 +55,7 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) :
     }
 
     override fun getFilter(): Filter {
-        return object: Filter() {
+        return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val filter = p0.toString().lowercase()
                 if (filter.isEmpty()) {
@@ -61,7 +63,7 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit) :
                 } else {
                     val filteredList = mutableListOf<Movie>()
                     movies.forEach {
-                        if(it.title.lowercase().contains(filter)) {
+                        if (it.title.lowercase().contains(filter)) {
                             filteredList.add(it)
                         }
                     }

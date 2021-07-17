@@ -42,7 +42,7 @@ class MovieListFragment : Fragment() {
             findNavController().navigate(i, bundle)
         }
         val adapter = MovieListAdapter(
-            navigate
+            navigate, requireContext()
         )
         with(binding!!) {
             movieListRecyclerView.adapter = adapter

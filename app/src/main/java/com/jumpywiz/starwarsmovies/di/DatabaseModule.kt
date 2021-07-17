@@ -19,5 +19,7 @@ object DatabaseModule {
     fun provideDB(@ApplicationContext context: Context) = MainDatabase.getInstance(context)
 
     @Provides
+    @Singleton
     fun provideDAO(db: MainDatabase) = db.Dao()
+
 }

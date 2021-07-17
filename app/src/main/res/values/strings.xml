@@ -3,4 +3,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="repeat">REPEAT</string>
+    <string name="director">Directed by: %1$s</string>
+    <string name="producer">Produced by: %1$s</string>
+    <string name="gender">Gender: %1$s</string>
+    <string name="birth">Birth date: %1$s</string>
+    <string name="diameter">Planet diameter: %1$s</string>
+    <string name="climate">Climate: %1$s</string>
+    <string name="gravity">Gravity: %1$s</string>
+    <string name="terrain">Terrain: %1$s</string>
+    <string name="population">Population: %1$s</string>
 </resources>

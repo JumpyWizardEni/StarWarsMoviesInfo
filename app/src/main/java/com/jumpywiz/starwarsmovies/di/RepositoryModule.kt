@@ -6,6 +6,8 @@ import com.jumpywiz.starwarsmovies.net.RetrofitService
 import com.jumpywiz.starwarsmovies.repos.CharacterRepository
 import com.jumpywiz.starwarsmovies.repos.MovieInfoRepository
 import com.jumpywiz.starwarsmovies.repos.MovieListRepository
+import com.jumpywiz.starwarsmovies.repos.Repository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,19 +18,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
-    @Provides
-    @Singleton
-    fun provideMovieListRepos(dao: Dao, remote: RemoteServiceImpl) =
-        MovieListRepository(dao, remote)
+abstract class RepositoryModule {
+    @Binds
+    abstract fun provideMovieListRepos(movieListRepo: MovieListRepository): Repository
 
-    @Provides
-    @Singleton
-    fun provideMovieInfoRepos(dao: Dao, remote: RemoteServiceImpl) =
-        MovieInfoRepository(dao, remote)
+    @Binds
+    abstract fun provideMovieInfoRepos(movieInfoRepo: MovieInfoRepository): Repository
 
-    @Provides
-    @Singleton
-    fun provideCharRepos(dao: Dao, remote: RemoteServiceImpl) =
-        CharacterRepository(dao, remote)
+    @Binds
+    abstract fun provideCharRepos(charRepo: CharacterRepository): Repository
 }

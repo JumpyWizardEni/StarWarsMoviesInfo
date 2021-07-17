@@ -50,7 +50,7 @@ class MovieInfoFragment : Fragment() {
         actionBar.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = requireArguments()["MOVIE_TITLE"] as String
-        val adapter = MovieInfoAdapter(navigate)
+        val adapter = MovieInfoAdapter(navigate, requireContext())
         with(binding!!) {
             characterRecyclerView.adapter = adapter
             characterRecyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -58,8 +58,6 @@ class MovieInfoFragment : Fragment() {
                 viewModel.getChars()
             }
         }
-
-
 
         with(viewModel) {
             chars.observe(viewLifecycleOwner, Observer { charsList ->

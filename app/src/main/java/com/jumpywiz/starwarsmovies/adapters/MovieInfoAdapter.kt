@@ -1,5 +1,6 @@
 package com.jumpywiz.starwarsmovies.adapters
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +10,8 @@ import com.jumpywiz.starwarsmovies.ui.CharacterViewHolder
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.ui.CharacterClickListener
 
-class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.Adapter<CharacterViewHolder>() {
+class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit, private val context: Context) :
+    RecyclerView.Adapter<CharacterViewHolder>() {
     private var chars: MutableList<Character> = mutableListOf()
 
 
@@ -22,9 +24,10 @@ class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.A
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val char = chars[position]
         holder.name.text = char.name
-        holder.sex.text = char.sex
-        holder.birthDate.text = char.birthDate
-        
+        holder.sex.text = String.format(context.resources.getString(R.string.gender), char.sex)
+        holder.birthDate.text =
+            String.format(context.resources.getString(R.string.birth), char.birthDate)
+
         val listener = CharacterClickListener(char.name, char.url, nav)
         holder.itemView.setOnClickListener(listener)
     }
@@ -38,7 +41,6 @@ class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit) : RecyclerView.A
         chars.addAll(newChars)
         notifyDataSetChanged()
     }
-
 
 
 }

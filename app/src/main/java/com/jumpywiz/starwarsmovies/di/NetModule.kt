@@ -22,10 +22,13 @@ object NetModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
     @Provides
+    @Singleton
     fun provideRetrofitService(retrofit: Retrofit) = retrofit.create(RetrofitService::class.java)
     @Provides
+    @Singleton
     fun provideGsonFactory() = GsonBuilder().setLenient().create()
 
     @Provides
+    @Singleton
     fun provideRemoteService(retrofitService: RetrofitService) = RemoteServiceImpl(retrofitService)
 }
