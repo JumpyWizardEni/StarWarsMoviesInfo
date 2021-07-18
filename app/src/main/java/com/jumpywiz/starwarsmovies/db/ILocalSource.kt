@@ -8,7 +8,7 @@ interface ILocalSource {
 
     suspend fun getAllMovies(): List<MovieDB>
 
-    suspend fun getMovie(id: Int) : List<MovieDB>
+    suspend fun getMovie(id: Int): List<MovieDB>
 
     suspend fun getCharacter(url: String): List<CharacterDB>
 

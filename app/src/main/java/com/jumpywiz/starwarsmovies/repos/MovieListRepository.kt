@@ -22,19 +22,18 @@ class MovieListRepository @Inject constructor(
         val data: MutableList<Movie> = mutableListOf()
         if (movies.isEmpty()) {
             Log.d("[MovieListRepository]", "Movies list from From Net")
-            val request = remote.getMoviesList()
-            when(request) {
+            when (val request = remote.getMoviesList()) {
                 is Result.Success -> {
-                    if (request.data != null) {
+                    return if (request.data != null) {
                         val dbData: MutableList<MovieDB> = mutableListOf()
                         request.data.results.forEach { rawData ->
                             data.add(requestToMovie(rawData))
                             dbData.add(requestToMovieDB(rawData))
                         }
                         local.setAllMovies(dbData)
-                        return Result.Success(data)
+                        Result.Success(data)
                     } else {
-                        return Result.Success(listOf<Movie>())
+                        Result.Success(listOf())
                     }
                 }
                 is Result.Error -> {

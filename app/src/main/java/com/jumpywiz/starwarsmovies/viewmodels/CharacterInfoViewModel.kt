@@ -1,6 +1,9 @@
 package com.jumpywiz.starwarsmovies.viewmodels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.model.Planet
 import com.jumpywiz.starwarsmovies.net.Result
@@ -27,7 +30,7 @@ class CharacterInfoViewModel @Inject constructor(
         isLoadingData.value = true
         onErrorData.value = false
         viewModelScope.launch {
-            when(val result = repos.getCharAndPlanetInfo(charUrl!!)) {
+            when (val result = repos.getCharAndPlanetInfo(charUrl!!)) {
                 is Result.Success -> {
                     isLoadingData.postValue(false)
                     onErrorData.postValue(false)

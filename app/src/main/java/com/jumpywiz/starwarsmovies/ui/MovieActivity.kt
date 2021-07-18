@@ -1,22 +1,16 @@
 package com.jumpywiz.starwarsmovies.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.jumpywiz.starwarsmovies.R
 import com.jumpywiz.starwarsmovies.databinding.ActivityMainBinding
 import com.jumpywiz.starwarsmovies.viewmodels.CharacterInfoViewModel
 import com.jumpywiz.starwarsmovies.viewmodels.MovieInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieActivity : AppCompatActivity() {

@@ -3,12 +3,10 @@ package com.jumpywiz.starwarsmovies.repos
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.dbToCharacter
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToCharacter
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToCharacterDB
-import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.db.LocalSourceImpl
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.net.IRemoteService
 import com.jumpywiz.starwarsmovies.net.Result
-
 import javax.inject.Inject
 
 class MovieInfoRepository @Inject constructor(
@@ -23,7 +21,7 @@ class MovieInfoRepository @Inject constructor(
             val strSplit = it.split("/")
             val charList = local.getCharacter(it)
             if (charList.isEmpty()) {
-                when(val request = remote.getCharacterInfo(strSplit[strSplit.size - 2].toInt())){
+                when (val request = remote.getCharacterInfo(strSplit[strSplit.size - 2].toInt())) {
                     is Result.Success -> {
                         chars.add(requestToCharacter(request.data!!))
                         local.setCharacter(requestToCharacterDB(request.data))

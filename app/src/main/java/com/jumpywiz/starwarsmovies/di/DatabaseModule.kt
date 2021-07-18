@@ -1,6 +1,5 @@
 package com.jumpywiz.starwarsmovies.di
 
-import android.app.Application
 import android.content.Context
 import com.jumpywiz.starwarsmovies.db.MainDatabase
 import dagger.Module

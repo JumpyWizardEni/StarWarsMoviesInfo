@@ -2,8 +2,6 @@ package com.jumpywiz.starwarsmovies.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.jumpywiz.starwarsmovies.converter.CharacterTypeConverter
 
 
 @Entity

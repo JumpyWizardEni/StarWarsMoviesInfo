@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jumpywiz.starwarsmovies.model.Movie
+import com.jumpywiz.starwarsmovies.net.Result
 import com.jumpywiz.starwarsmovies.repos.MovieListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.jumpywiz.starwarsmovies.net.Result
 
 
 @HiltViewModel

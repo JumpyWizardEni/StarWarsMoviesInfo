@@ -2,15 +2,11 @@ package com.jumpywiz.starwarsmovies.repos
 
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.dbToCharacter
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.dbToPlanet
-import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToCharacterDB
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToPlanet
 import com.jumpywiz.starwarsmovies.converter.ModelConverter.requestToPlanetDB
-import com.jumpywiz.starwarsmovies.db.Dao
 import com.jumpywiz.starwarsmovies.db.LocalSourceImpl
 import com.jumpywiz.starwarsmovies.model.Character
-import com.jumpywiz.starwarsmovies.model.CharacterDB
 import com.jumpywiz.starwarsmovies.model.Planet
-import com.jumpywiz.starwarsmovies.model.PlanetRequest
 import com.jumpywiz.starwarsmovies.net.IRemoteService
 import com.jumpywiz.starwarsmovies.net.Result
 import javax.inject.Inject

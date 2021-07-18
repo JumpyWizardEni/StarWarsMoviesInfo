@@ -10,17 +10,24 @@ import com.jumpywiz.starwarsmovies.model.CharacterDB
 import com.jumpywiz.starwarsmovies.model.MovieDB
 import com.jumpywiz.starwarsmovies.model.PlanetDB
 
-@Database(entities = [MovieDB::class, CharacterDB::class, PlanetDB::class], version = 2, exportSchema = false)
+@Database(
+    entities = [MovieDB::class, CharacterDB::class, PlanetDB::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(CharacterTypeConverter::class)
 
-abstract class MainDatabase: RoomDatabase() {
+abstract class MainDatabase : RoomDatabase() {
     abstract fun Dao(): Dao
-    companion object{
+
+    companion object {
         private var instance: MainDatabase? = null
         fun getInstance(context: Context): MainDatabase {
             if (instance == null) {
-                instance = Room.databaseBuilder(context.applicationContext,
-                    MainDatabase::class.java, "MainDB").fallbackToDestructiveMigration().build() //just for debug
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    MainDatabase::class.java, "MainDB"
+                ).fallbackToDestructiveMigration().build() //just for debug
             }
             return instance as MainDatabase
         }

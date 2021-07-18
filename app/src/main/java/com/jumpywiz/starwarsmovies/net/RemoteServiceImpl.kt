@@ -5,10 +5,10 @@ import com.jumpywiz.starwarsmovies.model.MovieListRequest
 import com.jumpywiz.starwarsmovies.model.PlanetRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
-class RemoteServiceImpl @Inject constructor(private val retrofitService: RetrofitService): IRemoteService {
+class RemoteServiceImpl @Inject constructor(private val retrofitService: RetrofitService) :
+    IRemoteService {
     override suspend fun getMoviesList(): Result<MovieListRequest> =
         withContext(Dispatchers.IO) {
             return@withContext try {

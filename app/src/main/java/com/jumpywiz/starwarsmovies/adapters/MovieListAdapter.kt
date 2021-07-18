@@ -58,8 +58,8 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit, private val cont
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val filter = p0.toString().lowercase()
-                if (filter.isEmpty()) {
-                    moviesFiltered = movies
+                moviesFiltered = if (filter.isEmpty()) {
+                    movies
                 } else {
                     val filteredList = mutableListOf<Movie>()
                     movies.forEach {
@@ -67,7 +67,7 @@ class MovieListAdapter(private val nav: (Int, Bundle?) -> Unit, private val cont
                             filteredList.add(it)
                         }
                     }
-                    moviesFiltered = filteredList
+                    filteredList
                 }
                 val result = FilterResults()
                 result.values = moviesFiltered

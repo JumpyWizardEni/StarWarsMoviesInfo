@@ -21,9 +21,11 @@ object NetModule {
         .baseUrl(RetrofitService.URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
+
     @Provides
     @Singleton
     fun provideRetrofitService(retrofit: Retrofit) = retrofit.create(RetrofitService::class.java)
+
     @Provides
     @Singleton
     fun provideGsonFactory() = GsonBuilder().setLenient().create()

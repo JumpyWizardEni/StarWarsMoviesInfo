@@ -5,7 +5,7 @@ import com.jumpywiz.starwarsmovies.model.MovieDB
 import com.jumpywiz.starwarsmovies.model.PlanetDB
 import javax.inject.Inject
 
-class LocalSourceImpl @Inject constructor(private val dao: Dao): ILocalSource {
+class LocalSourceImpl @Inject constructor(private val dao: Dao) : ILocalSource {
     override suspend fun getAllMovies(): List<MovieDB> = dao.getAllMovies()
 
     override suspend fun getMovie(id: Int): List<MovieDB> = dao.getMovie(id)
@@ -19,7 +19,6 @@ class LocalSourceImpl @Inject constructor(private val dao: Dao): ILocalSource {
     override suspend fun setCharacter(character: CharacterDB) = dao.setCharacter(character)
 
     override suspend fun setPlanet(planet: PlanetDB) = dao.setPlanet(planet)
-
 
 
 }

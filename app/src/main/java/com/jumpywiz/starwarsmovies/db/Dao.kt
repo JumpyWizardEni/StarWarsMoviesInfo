@@ -3,7 +3,9 @@ package com.jumpywiz.starwarsmovies.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.jumpywiz.starwarsmovies.model.*
+import com.jumpywiz.starwarsmovies.model.CharacterDB
+import com.jumpywiz.starwarsmovies.model.MovieDB
+import com.jumpywiz.starwarsmovies.model.PlanetDB
 
 @Dao
 interface Dao {
@@ -11,7 +13,7 @@ interface Dao {
     suspend fun getAllMovies(): List<MovieDB>
 
     @Query("SELECT * FROM moviedb where episodeId = :id")
-    suspend fun getMovie(id: Int) : List<MovieDB>
+    suspend fun getMovie(id: Int): List<MovieDB>
 
     @Query("SELECT * FROM characterdb where url = :url")
     suspend fun getCharacter(url: String): List<CharacterDB>

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jumpywiz.starwarsmovies.R
-import com.jumpywiz.starwarsmovies.ui.CharacterViewHolder
 import com.jumpywiz.starwarsmovies.model.Character
 import com.jumpywiz.starwarsmovies.ui.CharacterClickListener
+import com.jumpywiz.starwarsmovies.ui.CharacterViewHolder
 
 class MovieInfoAdapter(private val nav: (Int, Bundle?) -> Unit, private val context: Context) :
     RecyclerView.Adapter<CharacterViewHolder>() {

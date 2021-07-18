@@ -1,7 +1,5 @@
 package com.jumpywiz.starwarsmovies.net
 
-import java.lang.Exception
-
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T?) : Result<T>()
