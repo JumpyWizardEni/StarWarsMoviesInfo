@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:visibility="invisible" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/repeat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:background="@drawable/repeat_button"
         android:enabled="false"
         android:text="@string/repeat"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view"
